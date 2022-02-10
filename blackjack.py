@@ -2,7 +2,7 @@
 # might need to change player and dealer hand to simply be an int to be able to do the Ace mechanic
 
 from deck import Deck
-from dealer import Dealer
+#from dealer import Dealer
 from player import Player
 
 import time
@@ -16,7 +16,7 @@ class Blackjack():
 		print("Alright lets play...")
 		
 		self.deck = Deck()
-		self.dealer = Dealer(self.deck)
+		self.dealer = Player('Dealer', self.deck)
 		self.player = Player(playerName, self.deck)
 
 		self.keep_playing = True
@@ -31,45 +31,11 @@ class Blackjack():
 		#while the player wishes to keep playing and the deck has cards
 		while(self.keep_playing and self.deck.get_deck()):
 
-			self.player.add_to_hand()
-			print(self.player.get_hand())
-			print("Hit? (Y/N): ", end="")
-
-			hit_decision = input()
-
-			while(hit_decision.lower() in ['y'] and self.deck.get_deck()):
-				
-				self.player.add_to_hand()
-				print(self.player.get_hand())
-
-				if(self.player.get_hand() > self.MAX_HAND):
-					self.player_bust = True
-					print("Bust...")
-					time.sleep(1)
-					break
-				if(self.player.get_hand() == self.MAX_HAND):
-					print("Woah mama!")
-					time.sleep(1)
-					break
-
-				print("Hit? (Y/N)", end="")
-				hit_decision = input()
+			self.play_player_turn()
 
 			print('Dealer\'s turn')
 
-			while(self.deck.get_deck()):
-
-				self.dealer.add_to_hand()
-				print(self.dealer.get_hand())
-				time.sleep(0.5)
-
-				if(self.dealer.get_hand() > self.MAX_HAND):
-					self.dealer_bust = True
-					print("Dealer busted!")
-					break
-				if(self.dealer.get_hand() == self.MAX_HAND):
-					print('Dealer ballin!')
-					break
+			self.play_dealer_turn()
 
 			if(self.dealer_bust and self.player_bust):
 				print('Both a y\'all lose!')
@@ -84,13 +50,63 @@ class Blackjack():
 				self.keep_playing = False
 			else:
 				print("New deck? (Y/N): ", end="")
-				new_deck = input()
-				if(new_deck.lower() in ['y']):
+				use_new_deck = input()
+				if(use_new_deck.lower() in ['y']):
 					self.reset(True)
 				else:
 					self.reset(False)
 
-			print(self.deck.get_deck())
+	def play_player_turn(self):
+
+		self.player.add_to_hand()
+		print(self.player.get_hand())
+		print("Hit? (Y/N): ", end="")
+
+		hit_decision = input()
+
+		while(hit_decision.lower() in ['y'] and self.deck.get_deck()):
+			
+			self.player.add_to_hand()
+			print(self.player.get_hand())
+
+			if(self.player.get_hand_value() == self.MAX_HAND):
+				print("Woah mama!")
+				time.sleep(1)
+				break
+
+			if(self.player.get_hand_value() > self.MAX_HAND and not 'Ace' in self.player.get_hand()):
+				self.player_bust = True
+				print("{} busted..." .format(self.player.get_name()))
+				time.sleep(1)
+				break
+			elif(self.player.get_hand_value() > self.MAX_HAND and 'Ace' in self.player.get_hand()):
+				self.player.ace_as_one()
+
+			print("Hit? (Y/N)", end="")
+			hit_decision = input()
+
+	def play_dealer_turn(self):
+
+		while(self.deck.get_deck()):
+			
+			self.dealer.add_to_hand()
+			print(self.dealer.get_hand())
+			time.sleep(0.5)
+
+			if(self.dealer.get_hand_value() == self.MAX_HAND):
+				print('Dealer ballin!')
+				break
+
+			if(self.dealer.get_hand_value() > 16 and self.dealer.get_hand_value() <= self.MAX_HAND and not 'Ace' in self.dealer.get_hand()):
+				print('Dealer stands...')
+				break
+
+			if(self.dealer.get_hand_value() > self.MAX_HAND and not 'Ace' in self.dealer.get_hand()):
+				self.dealer_bust = True
+				print("Dealer busted!")
+				break
+			elif(self.dealer.get_hand_value() > self.MAX_HAND and 'Ace' in self.dealer.get_hand()):
+				self.dealer.ace_as_one()
 
 			
 

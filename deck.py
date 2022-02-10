@@ -3,7 +3,7 @@ import random
 class Deck():
 	def __init__(self):
 		self.cards = {
-		'Ace': [1,1,1,1],
+		'Ace': [11,11,11,11],
 		'Two': [2,2,2,2],
 		'Three': [3,3,3,3],
 		'Four': [4,4,4,4],
@@ -33,7 +33,7 @@ class Deck():
 			del self.cards[drawn_card[0]]
 			return temp
 		
-		return self.cards[drawn_card[0]].pop()
+		return self.cards[drawn_card[0]].pop(), drawn_card[0]
 
 	#for testing purposes only
 	def draw_specific(self,card):
