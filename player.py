@@ -21,6 +21,11 @@ class Player():
 
 	def add_to_hand(self):
 		card_value, card = self.draw()
+
+		#this will ensure that multiple aces can be drawn
+		if(card == 'Ace'):
+			self.ace_as_one_bool = False
+		
 		self.hand_value += card_value
 		self.hand.append(card)
 
@@ -28,7 +33,7 @@ class Player():
 		return self.deck.draw()
 
 	def ace_as_one(self):
-		if self.ace_as_one_bool == True:
+		if(self.ace_as_one_bool == True):
 			pass
 		else:
 			self.hand_value -= 10

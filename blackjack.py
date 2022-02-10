@@ -1,5 +1,8 @@
 #notes
-# might need to change player and dealer hand to simply be an int to be able to do the Ace mechanic
+# need to fix bug with multiple aces
+# probably make an if in the draw function, if(new ace is drawn, reset the ace as one bool)
+# game still breaks when dealer gets an ace
+# probably need to move some of the functionality over to player class
 
 from deck import Deck
 #from dealer import Dealer
@@ -43,6 +46,13 @@ class Blackjack():
 				print('Player wins!')
 			elif(self.player_bust):
 				print('Dealer wins...')
+			else:
+				if(self.player.get_hand_value() > self.dealer.get_hand_value()):
+					print('Player wins!')
+				elif(self.player.get_hand_value() == self.dealer.get_hand_value()):
+					print('It\'s a tie!')
+				else:
+					print('Dealer wins...')
 
 			print("Keep playing cowpoke? (Y/N): ", end="")
 			self.keep_playing = input()
@@ -66,8 +76,12 @@ class Blackjack():
 
 		while(hit_decision.lower() in ['y'] and self.deck.get_deck()):
 			
+			print(self.player.get_hand_value())
+
 			self.player.add_to_hand()
 			print(self.player.get_hand())
+
+			print(self.player.get_hand_value())
 
 			if(self.player.get_hand_value() == self.MAX_HAND):
 				print("Woah mama!")
@@ -82,7 +96,7 @@ class Blackjack():
 			elif(self.player.get_hand_value() > self.MAX_HAND and 'Ace' in self.player.get_hand()):
 				self.player.ace_as_one()
 
-			print("Hit? (Y/N)", end="")
+			print("Hit? (Y/N): ", end="")
 			hit_decision = input()
 
 	def play_dealer_turn(self):
