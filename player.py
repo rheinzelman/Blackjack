@@ -19,6 +19,9 @@ class Player():
 	def get_hand_value(self):
 		return self.hand_value
 
+	def get_ace_as_one_bool(self):
+		return self.ace_as_one_bool
+
 	def add_to_hand(self):
 		card_value, card = self.draw()
 
