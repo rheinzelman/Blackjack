@@ -7,8 +7,10 @@ class TotalTestSuite(unittest.TestCase):
     def setUp(self):
         self.deck = TestDeck()
         self.player = TestPlayer()
+        self.blackjack = TestBlackjack()
 
     def tearDown(self):
+        self.blackjack.dispose()
         self.player.dispose()
         self.deck.dispose()
 
