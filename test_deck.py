@@ -1,39 +1,34 @@
 import unittest
-from blackjack import Blackjack
 from deck import Deck
-from player import Player
 
 class TestDeck(unittest.TestCase):
-    def setUp(self):
-        self.cards1 = {
-		'Ace': [11,11,11,11],
-		'Two': [2,2,2,2],
-		'Three': [3,3,3,3],
-		'Four': [4,4,4,4],
-		'Five': [5,5,5,5],
-		'Six': [6,6,6,6],
-		'Seven': [7,7,7,7],
-		'Eight': [8,8,8,8],
-		'Nine': [9,9,9,9],
-		'Ten': [10,10,10,10],
-		'Jack': [10,10,10,10],
-		'Queen': [10,10,10,10],
-		'King': [10,10,10,10]
-		}
-        self.cards2 = {
+	def setUp(self):
+		self.test_deck1 = Deck()
 
-		}
+	def tearDown(self):
+		pass
 
-    def tearDown(self):
-        pass
+	def test_get_deck(self):
 
-    def test_get_deck(self):
-		#return true if the deck is not empty
-		self.assertTrue(self.cards1)
-		#return false if the deck is empty
-		self.assertFalse(self.cards2)
+		# return true if the deck is not empty
+		self.assertTrue(self.test_deck1.get_deck())
 
+		# return false if the deck is empty
+		for i in range(52):
+			self.test_deck1.draw()
+		self.assertFalse(self.test_deck1.get_deck())
 
+	def test_draw(self):
+		for i in range(52):
+			self.test_deck1.draw()
+		self.assertEquals(self.test_deck1.draw(), 'Empty Deck')
+
+	def test_reset(self):
+		self.test_deck2 = Deck()
+		for i in range(52):
+			self.test_deck1.draw()
+		self.assertFalse(self.test_deck1.get_deck())
+		self.assertEquals(self.test_deck1.reset(), self.test_deck2.get_deck())
 
 if __name__ == '__main__':
 	unittest.main()

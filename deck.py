@@ -37,7 +37,20 @@ class Deck():
 
 	#for testing purposes only
 	def draw_specific(self,card):
-		return self.cards[card].pop()
+		#return self.cards[card].pop()
+
+		# if we have no remaining cards in the pool
+		if (not self.cards):
+			return 'Empty Deck'
+
+
+		# if we are attempting the last card of a rank, then we will delete that rank from the card pool
+		if (len(self.cards[card]) == 1):
+			temp = self.cards[card], card
+			del self.cards[card]
+			return temp
+
+		return self.cards[card].pop(), card
 
 	#get the remaining cards in the deck, for testing only
 	def get_deck(self):
@@ -59,3 +72,4 @@ class Deck():
 		'Queen': [10,10,10,10],
 		'King': [10,10,10,10]
 		}
+		return self.cards
