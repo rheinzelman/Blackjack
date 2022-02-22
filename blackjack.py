@@ -42,9 +42,9 @@ class Blackjack():
 
 			if(self.dealer_bust and self.player_bust):
 				print('Both a y\'all lose!')
-			elif(self.dealer_bust):
+			elif(self.dealer_bust and not self.player_bust):
 				print('Player wins!')
-			elif(self.player_bust):
+			elif(self.player_bust and not self.dealer_bust):
 				print('Dealer wins...')
 			else:
 				if(self.player.get_hand_value() > self.dealer.get_hand_value()):
