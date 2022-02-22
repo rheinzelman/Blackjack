@@ -1,9 +1,9 @@
 import unittest
-from blackjack import Blackjack
 from deck import Deck
 from player import Player
 
 class TestPlayer(unittest.TestCase):
+
     def setUp(self):
         self.test_deck = Deck()
         self.test_player = Player('Ray', self.test_deck)
@@ -22,6 +22,7 @@ class TestPlayer(unittest.TestCase):
     def test_get_name(self):
         self.assertEqual(self.test_player.get_name(), self.test_player.name)
 
+    #stand in for the add_to_hand function, which calls on the draw_specific function
     def test_add_specific(self):
         self.test_player.add_specific('Ace')
         self.test_player.add_specific('King')
@@ -54,6 +55,3 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.test_player.get_hand_value(), 21)
         self.test_player.clear_hand()
         self.test_deck.reset()
-
-if __name__ == '__main__':
-	unittest.main()

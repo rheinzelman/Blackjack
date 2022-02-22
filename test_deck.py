@@ -29,6 +29,3 @@ class TestDeck(unittest.TestCase):
 			self.test_deck1.draw()
 		self.assertFalse(self.test_deck1.get_deck())
 		self.assertEquals(self.test_deck1.reset(), self.test_deck2.get_deck())
-
-if __name__ == '__main__':
-	unittest.main()

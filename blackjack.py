@@ -15,7 +15,7 @@ class Blackjack():
 	def __init__(self):
 		
 		print("What's your name cowpoke? ", end="")
-		playerName = 'Ray'
+		playerName = input()
 		print("Alright lets play...")
 		
 		self.deck = Deck()
@@ -70,13 +70,12 @@ class Blackjack():
 
 		self.player.add_to_hand()
 		print(self.player.get_hand())
+		print(self.player.get_hand_value())
 		print("Hit? (Y/N): ", end="")
 
 		hit_decision = input()
 
 		while(hit_decision.lower() in ['y'] and self.deck.get_deck()):
-			
-			print(self.player.get_hand_value())
 
 			self.player.add_to_hand()
 			print(self.player.get_hand())
