@@ -29,7 +29,7 @@ class Deck():
 
 		#if we are attempting the last card of a rank, then we will delete that rank from the card pool
 		if (len(self.cards[drawn_card[0]]) == 1):
-			temp = self.cards[drawn_card[0]]
+			temp = self.cards[drawn_card[0]], drawn_card[0]
 			del self.cards[drawn_card[0]]
 			return temp
 		
@@ -45,7 +45,7 @@ class Deck():
 
 	def reset(self):
 		self.cards = {
-		'Ace': [1,1,1,1],
+		'Ace': [11,11,11,11],
 		'Two': [2,2,2,2],
 		'Three': [3,3,3,3],
 		'Four': [4,4,4,4],

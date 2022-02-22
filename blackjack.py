@@ -93,7 +93,8 @@ class Blackjack():
 				print("{} busted..." .format(self.player.get_name()))
 				time.sleep(1)
 				break
-			elif(self.player.get_hand_value() > self.MAX_HAND and 'Ace' in self.player.get_hand()):
+			elif( (self.player.get_hand_value() > self.MAX_HAND) and ('Ace' in self.player.get_hand()) and self.player.get_ace_as_one_bool() ):
+				print('ace is one now')
 				self.player.ace_as_one()
 
 			print("Hit? (Y/N): ", end="")
@@ -105,6 +106,7 @@ class Blackjack():
 			
 			self.dealer.add_to_hand()
 			print(self.dealer.get_hand())
+			print(self.dealer.get_hand_value())
 			time.sleep(0.5)
 
 			if(self.dealer.get_hand_value() == self.MAX_HAND):
@@ -119,7 +121,7 @@ class Blackjack():
 				self.dealer_bust = True
 				print("Dealer busted!")
 				break
-			elif(self.dealer.get_hand_value() > self.MAX_HAND and 'Ace' in self.dealer.get_hand()):
+			if( (self.dealer.get_hand_value() > self.MAX_HAND) and 'Ace' in self.dealer.get_hand() and self.dealer.get_ace_as_one_bool() == True):
 				self.dealer.ace_as_one()
 
 			
